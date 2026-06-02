@@ -6,7 +6,6 @@ module "s3bucket" {
 }
 
 
-
 module "subnet" {
   depends_on = [ module.vpc ]
   source = "./subnet"
