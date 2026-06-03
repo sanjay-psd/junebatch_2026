@@ -31,7 +31,6 @@ jobs:
           aws-region: us-east-1
 
       - name: ls
-        working-directory: terraform
         run: ls
         
       # Runs a set of commands using the runners shell
