@@ -32,13 +32,13 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Init
-        working-directory: ./terraform
+        working-directory: terraform
         run: terraform init
 
       - name: Plan
-        working-directory: ./terraform
+        working-directory: terraform
         run: terraform plan -var-file="dev.tfvars"
 
       - name: Apply
-        working-directory: ./terraform
+        working-directory: terraform
         run: terraform apply -var-file="dev.tfvars" -auto-approve
