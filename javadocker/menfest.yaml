@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-web-deployment
+  labels:
+    app: java-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-web
+  template:
+    metadata:
+      labels:
+        app: java-web
+    spec:
+      containers:
+        - name: java-web
+          image: jatinbhalla1991/java-web:latest
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-web-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: java-web
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
