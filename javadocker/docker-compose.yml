@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: jatinbhalla1991/java-web:latest
+    image: sanjaydockerdesk/java-web:latest
     ports:
       - "8080:8080"
     restart: unless-stopped
