@@ -1,11 +1,17 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: java-web-namespace
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: java-web-deployment
+  namespace: java-web-namespace
   labels:
     app: java-web
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: java-web
@@ -20,11 +26,24 @@ spec:
           ports:
             - containerPort: 8080
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 1
+          maxSurge: 1
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: java-web-service
+  namespace: java-web-namespace
 spec:
   type: LoadBalancer
   selector:
