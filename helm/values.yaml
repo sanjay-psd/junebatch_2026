@@ -2,7 +2,7 @@
 
 # Namespace configuration
 namespace:
-  name: java-web-namespace
+  name: monitoring
   create: true
 
 # Blue Deployment Configuration
