@@ -1,7 +1,7 @@
 @echo off
 REM Build and push Docker images for Blue-Green Deployment
 
-set DOCKER_REGISTRY=jatinbhalla1991
+set DOCKER_REGISTRY=sanjaydockerdesk
 set APP_NAME=java-web
 
 echo.

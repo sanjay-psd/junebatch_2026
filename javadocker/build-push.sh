@@ -2,7 +2,7 @@
 
 # Build and push Docker images for Blue-Green Deployment
 
-DOCKER_REGISTRY="jatinbhalla1991"
+DOCKER_REGISTRY="sanjaydockerdesk"
 APP_NAME="java-web"
 
 echo "================================"

@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: java-web
-          image: jatinbhalla1991/java-web-blue:v1.0
+          image: sanjaydockerdesk/java-web-blue:v1.0
           ports:
             - containerPort: 8080
           imagePullPolicy: IfNotPresent
@@ -61,7 +61,7 @@ spec:
     spec:
       containers:
         - name: java-web
-          image: jatinbhalla1991/java-web-green:v1.0
+          image: sanjaydockerdesk/java-web-green:v1.0
           ports:
             - containerPort: 8080
           imagePullPolicy: IfNotPresent

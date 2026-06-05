@@ -1,15 +1,16 @@
 # Cluster Name - Update this for your demo
-cluster_name = "demo-eks-cluster1"
+#cluster_name = "demo-eks-cluster1"
+cluster_name = "team-1-june-batch"
 
 # AWS Region
-region = "us-east-1"
+region = "us-east-2"
 
 # Kubernetes Version
 kubernetes_version = "1.32"
 
 # VPC Configuration
 vpc_cidr           = "10.0.0.0/16"
-availability_zones = ["us-east-1a", "us-east-1b"]
+availability_zones = ["us-east-2a", "us-east-2b"]
 
 # Node Group Configuration
 instance_types     = ["t3.medium"]

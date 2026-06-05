@@ -7,7 +7,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: java-web-deployment
-  namespace: java-web-namespace
+  namespace: monitoring
   labels:
     app: java-web
 spec:
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: java-web
-          image: jatinbhalla1991/java-web:latest
+          image: sanjaydockerdesk/java-web:latest
           ports:
             - containerPort: 8080
           imagePullPolicy: IfNotPresent
