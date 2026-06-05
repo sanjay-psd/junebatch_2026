@@ -1,0 +1,17 @@
+apiVersion: v2
+name: java-web-blue-green
+description: A Helm chart for Java Web Blue-Green Deployment
+type: application
+version: 1.0.0
+appVersion: "2.0"
+keywords:
+  - java
+  - blue-green
+  - deployment
+  - kubernetes
+home: https://github.com/jatinbhalla1991/java-web
+sources:
+  - https://github.com/jatinbhalla1991/java-web
+maintainers:
+  - name: Jatin Bhalla
+    email: jatin@example.com

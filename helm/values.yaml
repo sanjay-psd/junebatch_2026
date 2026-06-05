@@ -1,0 +1,137 @@
+# Default values for java-web-blue-green Helm chart
+
+# Namespace configuration
+namespace:
+  name: java-web-namespace
+  create: true
+
+# Blue Deployment Configuration
+blue:
+  enabled: true
+  deployment:
+    name: java-web-deployment-blue
+    replicaCount: 2
+    version: blue
+  image:
+    repository: jatinbhalla1991/java-web-blue
+    tag: v1.0
+    pullPolicy: IfNotPresent
+  port: 8080
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+  labels:
+    app: java-web
+    version: blue
+
+# Green Deployment Configuration
+green:
+  enabled: true
+  deployment:
+    name: java-web-deployment-green
+    replicaCount: 2
+    version: green
+  image:
+    repository: jatinbhalla1991/java-web-green
+    tag: v2.0
+    pullPolicy: IfNotPresent
+  port: 8080
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+  labels:
+    app: java-web
+    version: green
+
+# Service Configuration
+service:
+  # Main service - routes traffic
+  main:
+    name: java-web-service
+    type: LoadBalancer
+    port: 8080
+    targetPort: 8080
+    # Set to 'blue' or 'green' to control which version receives traffic
+    activeVersion: green
+  
+  # Green internal service for testing
+  green:
+    name: java-web-service-green
+    enabled: true
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
+
+# ConfigMap Data
+configMaps:
+  enabled: true
+  blue:
+    name: blue-config
+    data:
+      index.html: |
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Java Web App - BLUE Environment</title>
+            <style>
+                body { background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%); margin: 0; padding: 0; font-family: Arial, sans-serif; }
+                .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+                .card { background: white; border-radius: 10px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; }
+                h1 { color: #0066cc; margin: 0; }
+                .version { color: #666; font-size: 18px; margin: 10px 0; }
+                .status { color: #28a745; font-weight: bold; font-size: 16px; margin-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="card">
+                    <h1>🔵 BLUE Environment</h1>
+                    <p class="version">Version: 1.0 (Current Production)</p>
+                    <p>This is the active BLUE deployment</p>
+                    <p class="status">✓ Active</p>
+                </div>
+            </div>
+        </body>
+        </html>
+  green:
+    name: green-config
+    data:
+      index.html: |
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Java Web App - GREEN Environment</title>
+            <style>
+                body { background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); margin: 0; padding: 0; font-family: Arial, sans-serif; }
+                .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+                .card { background: white; border-radius: 10px; padding: 40px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; }
+                h1 { color: #28a745; margin: 0; }
+                .version { color: #666; font-size: 18px; margin: 10px 0; }
+                .status { color: #ffc107; font-weight: bold; font-size: 16px; margin-top: 20px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="card">
+                    <h1>🟢 GREEN Environment</h1>
+                    <p class="version">Version: 2.0 (New Release)</p>
+                    <p>This is the standby GREEN deployment</p>
+                    <p class="status">⧗ Waiting to go live</p>
+                </div>
+            </div>
+        </body>
+        </html>
+
+# Global labels applied to all resources
+globalLabels:
+  app.kubernetes.io/name: java-web
+  app.kubernetes.io/instance: java-web-release
+  app.kubernetes.io/managed-by: Helm

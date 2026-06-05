@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.main.name }}
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    {{- toYaml .Values.globalLabels | nindent 4 }}
+spec:
+  type: {{ .Values.service.main.type }}
+  selector:
+    app: java-web
+    version: {{ .Values.service.main.activeVersion }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.main.port }}
+      targetPort: {{ .Values.service.main.targetPort }}
+---
+{{- if .Values.service.green.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.green.name }}
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    {{- toYaml .Values.globalLabels | nindent 4 }}
+    app.kubernetes.io/component: green-service
+spec:
+  type: {{ .Values.service.green.type }}
+  selector:
+    app: java-web
+    version: green
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.green.port }}
+      targetPort: {{ .Values.service.green.targetPort }}
+{{- end }}

@@ -1,0 +1,28 @@
+{{- if .Values.green.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.green.deployment.name }}
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    {{- toYaml .Values.green.labels | nindent 4 }}
+    {{- toYaml .Values.globalLabels | nindent 4 }}
+spec:
+  replicas: {{ .Values.green.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{- toYaml .Values.green.labels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- toYaml .Values.green.labels | nindent 8 }}
+    spec:
+      containers:
+        - name: java-web
+          image: "{{ .Values.green.image.repository }}:{{ .Values.green.image.tag }}"
+          imagePullPolicy: {{ .Values.green.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.green.port }}
+          resources:
+            {{- toYaml .Values.green.resources | nindent 12 }}
+{{- end }}

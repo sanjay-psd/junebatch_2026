@@ -83,7 +83,7 @@ spec:
   type: LoadBalancer
   selector:
     app: java-web
-    version: blue  # Switch to 'green' for deployment
+    version: green  # Switch to 'green' for deployment
   ports:
     - protocol: TCP
       port: 8080
